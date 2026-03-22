@@ -12,7 +12,3 @@ This project is built purely in Python, utilizing the Streamlit library. Pandas 
 ## Usage
 This project is hosted on the Streamlit Community Cloud. The URL is earthquake-visualization.streamlit.app
 
-## AI Use
-Because this is mainly a learning project, I tried to limit AI usage to questions regarding Streamlit front end elements.
-
-
