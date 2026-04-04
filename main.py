@@ -56,10 +56,10 @@ def generate_urls(timeframe):
     emsc_url = f"https://www.seismicportal.eu/fdsnws/event/1/query?minmagnitude=1.5&starttime={formatted_date}&format=json"
     return usgs_url, emsc_url
 
-# if a mag is logged in the earthquake dict, calculate distance between prev and new coord. If dist < 20 km, duplication is probable.
+# if a mag is logged in the earthquake dict, calculate distance between prev and new coord. If dist < 100 km, duplication is probable.
 def duplication_check(coord_tuple, earthquake_dictionary, mag, hour_time):
     # for every earthquake, check if mag and hour time is in the dictionary. if it is, check if similar coords have been stored. if any similar coords have a distance less than 
-    # 20 km, do not add the earthquake to the earthquake dict
+    # 100 km, do not add the earthquake to the earthquake dict
     lat, long = coord_tuple
     rounded_lat = int(float(lat))
     rounded_long = int(float(long))
@@ -73,7 +73,7 @@ def duplication_check(coord_tuple, earthquake_dictionary, mag, hour_time):
             prev_coords = earthquake_dictionary[key].get(adj_coords, [])
             
             for prev_coord_tuple in prev_coords:
-                if geodesic(coord_tuple, prev_coord_tuple).km < 20: # 20 km is generally greater than the difference between emsc and usgs coords, indicating a duplicate if dist > 20
+                if geodesic(coord_tuple, prev_coord_tuple).km < 100: # 100 km is generally greater than the difference between emsc and usgs coords, indicating a duplicate if dist > 20
                     return False
 
     earthquake_dictionary[key][rounded_coords].append(coord_tuple)
